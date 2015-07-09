@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html><head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+		<meta charset="utf-8">
+		<title></title>
+		<link rel="stylesheet" href="res/biggirl.css">
+		<link rel="stylesheet" href="res/reset.css">
+		<script type="text/javascript" src="res/jquery-2.js"></script>
+		<script type="text/javascript" src="res/base.js"></script>
+		<meta name="viewport" content="width=device-width,user-scalable=no">
+		<script>
+			var data="身高,多高,高:我身高173cm，天生丽质，还有什么想知道的？;"
+			data +="1,2,3,4,5,6,7,8,9,0:和我说话不要带数字，学经济的咋了，就是不会算！;"
+			data +="来自,出生,从哪里来,哪里人:我来自安徽芜湖，国际大都市，没去过吧;"
+			data +="饿,吃,食物,龙虾:我就很好吃，特别喜欢吃，不服啊;"
+			data +="你是谁:我是胡涂 虫儿（同） 啊;"
+			data +="喜欢,爱:红烧带鱼是我的最爱呀，你会做吗;"
+			data +="讨厌,恨,烦:啊，拿蜘蛛的你妈在二号树上去取一下;"
+			data +="清华:清华的哥哥老是让我找我男朋友，帮个忙咋地啦！;"
+			data +="钱:交房租都没钱了，股市也不行了，能借点不……;"
+			data +="你在干嘛,你在做什么,你在干什么:你猜;"
+			data +="睡觉:睡你麻痹起来嗨~;";
+			function sendMessage(){
+				var txt=document.getElementById("account").value;
+				writeMessage(txt);
+				setTimeout(function(){LoadChat(txt);},1000);	
+				document.getElementById("account").value="";
+			}
+			function writeMessage(txt){
+				var d=document.getElementById("chatPanel")
+				var div=document.createElement("div");
+				div.innerHTML="我："+txt;
+				div.className="meText";
+				d.appendChild(div);
+				d.scrollTop = d.scrollHeight;
+			}			
+			function writeAnswer(txt){
+				var d=document.getElementById("chatPanel")
+				var div=document.createElement("div");
+				div.innerHTML="胡涂同："+txt;
+				div.className="bText";
+				d.appendChild(div);
+				d.scrollTop = d.scrollHeight;
+			}
+			function LoadChat(tempStr){			
+			   var p1=data.split(";");
+			   var flag=0;
+			   for(var i=0;i<p1.length;i++){
+			   		var questions=p1[i].split(":")[0].split(",");
+			   		var answer=p1[i].split(":")[1];
+			   		for(var k=0;k<questions.length;k++){		   			
+			   			if(tempStr.indexOf(questions[k])>=0){
+			   				writeAnswer(answer);
+			   				flag=1;
+			   				break;
+			   			}
+			   		}			   		
+			   }
+			   if(flag==0){
+			   		var normal=["到底想干啥？","别废话了！","你说啥？","别扯淡了"];
+			   		writeAnswer(normal[GetRandomNum(0,3)]);
+			   }			
+		}
+		</script>
+	</head>
+	<body>
+		<div class="container">
+			<div class="chatContainer" id="chatPanel">
+				<div class="bText">胡涂同：找我干啥？</div>
+			</div>
+			<div class="inputContainer">
+				<input id="account" class="nameInput" placeholder="你想问胡涂同什么？" data-input-clear="2" type="text">
+				<input class="btnInput" value="发送" onclick="sendMessage()" type="button"> 
+			</div>
+		</div>
+	
+
+</body></html>
